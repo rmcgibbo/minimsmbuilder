@@ -204,26 +204,28 @@ def clarans(ptraj, k, num_local_minima, max_neighbors, local_swap=True, initial_
     return optimal_medoids, optimal_assignments, optimal_distances
 
 
-
-
 def main():
     data_dir = os.path.join(os.path.dirname(__file__), 'data/')
     project_info_path = os.path.join(data_dir, 'ProjectInfo.h5')
-    
+
     project = Project.LoadFromHDF(project_info_path)
     trajectory_xyzlist = project.GetAllConformations()
-    
+
     # If you want to simulate a longer trajectory (these trajectories)
     # are small compared to our real datasets, you can just stack this
     # one on top of itself:
     # multiplier = 5
     # trajectory_xyzlist = np.vstack([trajectory_xyzlist] * multiplier)
-    
-    
+
+    # The TheoData object prepares the xyz coordinates for the C code. This
+    # preparation involves byte-aligning some of the arrays, translating 
+    # the xyz coordinates of each conformation so that its center of mass is at
+    # the origin, and precalculating some value called G (some kind of magnitude)
+    # for each of the conformations, which is required by the RMSD algorithm.
     theo = TheoData(trajectory_xyzlist)
-    
+
     num_clusters = 100
-    
+
     # run clarans clustering
     # The execution time is mostly set by num_local_minima and max_neighbors
     # (lower numbers go faster). The execution time should be roughly
@@ -233,8 +235,8 @@ def main():
     # of the execution time spent in the C extension code goes up.
     centers, assignments, distances = clarans(theo, num_clusters,
                                               num_local_minima=5, max_neighbors=5)
-    
-    
+
+
     print '\nFound %d centers with kcenters' % num_clusters
     print centers
     
