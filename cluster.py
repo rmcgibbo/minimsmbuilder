@@ -211,10 +211,10 @@ def main():
     project = Project.LoadFromHDF(project_info_path)
     trajectory_xyzlist = project.GetAllConformations()
 
-    # If you want to simulate a longer trajectory (these trajectories)
-    # are small compared to our real datasets, you can just stack this
+    # If you want to simulate a longer trajectory (these trajectories
+    # are small compared to our real datasets), you can just stack this
     # one on top of itself:
-    # multiplier = 5
+    # multiplier = 10
     # trajectory_xyzlist = np.vstack([trajectory_xyzlist] * multiplier)
 
     # The TheoData object prepares the xyz coordinates for the C code. This
