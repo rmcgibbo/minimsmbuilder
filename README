@@ -1,0 +1,38 @@
+This is a mini version of msmbuilder, with just clustering
+
+INSTALL:
+============
+You probably want to be using the enthought python distribution. Otherwise, installing the necessary python libraries for math stuff is a real headache.
+
+http://enthought.com/products/epd.php
+
+>> python setup.py install
+
+
+RUNNING:
+============
+>> python cluster.py
+
+I was also running it with the python profiler, using
+>> python -m cProfile -s cumulative cluster.py
+
+PERFORMANCE
+=============
+
+With the parameters num_local_minima and max_neighbors both set to 5
+(as the code has them currently), the top methods from the profiler are:
+
+      2009596 function calls (2003632 primitive calls) in 87.175 seconds
+
+Ordered by: cumulative time
+
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+
+     1    0.010    0.010   87.176   87.176 cluster.py:1(<module>)
+     1    0.001    0.001   86.825   86.825 cluster.py:209(main)
+     1    3.821    3.821   82.244   82.244 cluster.py:95(clarans)
+290462    1.846    0.000   71.943    0.000 cluster.py:30(one_to_all)
+290462   70.097    0.000   70.097    0.000 {minimsmbuilder.rmsdcalc.getMultipleRMSDs_aligned_T_g}
+289621    0.465    0.000    5.210    0.000 fromnumeric.py:740(argmin)
+289621    4.745    0.000    4.745    0.000 {method 'argmin' of 'numpy.ndarray' objects}
+   743    0.381    0.001    3.653    0.005 TheoData.py:10(__init__)

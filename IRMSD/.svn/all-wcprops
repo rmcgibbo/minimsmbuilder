@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/msmbuilder/!svn/ver/613/msmbuilder/msmbuilder/IRMSD
+END
+AUTHORS
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/msmbuilder/!svn/ver/472/msmbuilder/msmbuilder/IRMSD/AUTHORS
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/msmbuilder/!svn/ver/472/msmbuilder/msmbuilder/IRMSD/COPYING
+END
+theobald_rmsd.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/msmbuilder/!svn/ver/525/msmbuilder/msmbuilder/IRMSD/theobald_rmsd.c
+END
+License.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/msmbuilder/!svn/ver/472/msmbuilder/msmbuilder/IRMSD/License.py
+END
+rmsd_numpy_array.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/msmbuilder/!svn/ver/525/msmbuilder/msmbuilder/IRMSD/rmsd_numpy_array.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/msmbuilder/!svn/ver/613/msmbuilder/msmbuilder/IRMSD/Makefile
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/msmbuilder/!svn/ver/453/msmbuilder/msmbuilder/IRMSD/README
+END
+theobald_rmsd.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/msmbuilder/!svn/ver/464/msmbuilder/msmbuilder/IRMSD/theobald_rmsd.h
+END
