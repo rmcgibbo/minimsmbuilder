@@ -22,7 +22,7 @@
 import os
 import numpy as np
 
-from msmbuilder import Conformation, Serializer, Clustering, Trajectory
+from minimsmbuilder import Serializer, Trajectory
 
 def GetUniqueRandomIntegers(MaxN,NumInt):
     """Get random numbers, with replacement."""
@@ -59,10 +59,10 @@ class Project(Serializer.Serializer):
         for key in ["RunList","CloneList","NumGensList"]:
             if key in S: self[key]=S[key]
         try:
-            self.Conf=Conformation.Conformation.LoadFromPDB(self["ConfFilename"])
+            self.Conf=Trajectory.Trajectory.LoadFromPDB(self["ConfFilename"])
         except IOError:
             print("Could not find %s; trying current directory."%self["ConfFilename"])
-            self.Conf=Conformation.Conformation.LoadFromPDB(os.path.basename(self["ConfFilename"]))
+            self.Conf=Trajectory.Trajectory.LoadFromPDB(os.path.basename(self["ConfFilename"]))
     def GetNumTrajectories(self):
         """Return the number of trajectories in this project."""
         return(self["TrajLengths"].shape[0])

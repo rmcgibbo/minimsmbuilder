@@ -22,8 +22,9 @@
 import tables
 import numpy as np
 
-from msmbuilder import PDB, Conformation, Serializer, xtc, dcd, DistanceMetric
-RMSD=DistanceMetric.RMSD
+from minimsmbuilder import PDB
+#from minimsmbuilder import Conformation
+from minimsmbuilder import Serializer
 
 MAXINT16=32766
 
@@ -47,7 +48,7 @@ def ConvertFromLossyIntegers(X,Precision):
     X2/=float(Precision)
     return(X2)
 
-class Trajectory(Conformation.ConformationBaseClass):
+class Trajectory(Serializer.Serializer):
     """This is the representation of a sequence of  conformations.
 
     Notes:
@@ -58,40 +59,11 @@ class Trajectory(Conformation.ConformationBaseClass):
     """
     def __init__(self,S):
         """Create a Trajectory from a single conformation.  Leave the XYZList key as an empty list for easy appending."""
-        Conformation.ConformationBaseClass.__init__(self,S)
+        # Conformation.ConformationBaseClass.__init__(self,S)
+        Serializer.Serializer.__init__(self, S)
         self["XYZList"]=[]
         if "XYZList" in S: self["XYZList"]=S["XYZList"].copy()
 
-    def RestrictAtomIndices(self,AtomIndices):
-        Conformation.ConformationBaseClass.RestrictAtomIndices(self,AtomIndices)
-        self["XYZList"]=self["XYZList"][:,AtomIndices]
-
-    def CalcRMSD(self,Conf=None,Ind0=None,Ind1=None):
-        """Calculate the RMSD between a trajectory and another object.
-
-        Keyword Arguments:
-        Conf -- A conformation.  If this is set, calculate d(Conf, x_i) for each x_i in the trajectory.  Default: None
-        Ind0 -- Which Atom indices to use with self.  Default: None (which uses ALL atoms)
-        Ind1 -- Which Atom indices to use with Conf.  Default: None (which uses ALL atoms)
-
-        Notes:
-        If Conf==None, pairwise RMSD between all frames of self will be calculate.  
-        """
-        n=len(self["XYZList"])
-        if Ind0==None:
-            Ind0=range(len(self["XYZList"][0]))
-        if Ind1==None:
-            Ind1=range(len(self["XYZList"][0]))
-        if Conf==None:
-            print("Calculating Pairwise RMSD")
-            RData1=RMSD.PrepareData(self["XYZList"][:,Ind0])
-            RMat=np.zeros((n,n),'float32')
-            for i in range(n):
-                RMat[i]=RMSD.GetFastMultiDistance(RData1,RData1,i)
-            return(RMat)
-        else:
-            RVec=RMSD.GetMultiDistance(self["XYZList"][:,Ind0],Conf["XYZ"][Ind1])
-            return(RVec)
     def SaveToLHDF(self,Filename,Precision=1000):
         """Save a Trajectory instance to a Lossy HDF File.  First, remove the XYZList key because it should be written using the special CArray operation.  This file format is roughly equivalent to an XTC and should comparable file sizes but with better IO performance."""
         Serializer.CheckIfFileExists(Filename)
