@@ -3,10 +3,13 @@ This is a mini version of msmbuilder, with just clustering
 INSTALL:
 ============
 You probably want to be using the enthought python distribution. Otherwise, installing the necessary python libraries for math stuff is a real headache.
+It's actually chiefly the "tables" library which is used to read the data files
+that is something that not every modern python install has by default.
 
 http://enthought.com/products/epd.php
 
 >> python setup.py install
+
 
 
 RUNNING:

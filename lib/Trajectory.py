@@ -82,10 +82,6 @@ class Trajectory(Serializer.Serializer):
         for i in range(len(self["XYZList"])):
             XTCFile.write(self["XYZList"][i],1,i,np.eye(3,3,dtype='float32'),Precision)
         
-    def SaveToPDB(self,Filename):
-        """Write a conformation as a PDB file."""
-        for i in range(len(self["XYZList"])):
-            PDB.WritePDBConformation(Filename,self["AtomID"], self["AtomNames"],self["ResidueNames"],self["ResidueID"],self["XYZList"][i],self["ChainID"])
     def Save(self,Filename,Precision=1000):
         """Auto-detect format and save."""
         if ".h5" in Filename:
@@ -97,17 +93,6 @@ class Trajectory(Serializer.Serializer):
         elif ".lh5" in Filename:
             self.SaveToLHDF(Filename,Precision=Precision)
             
-    def AppendPDB(self,Filename):
-        try:
-            self["XYZList"]=self["XYZList"].tolist()
-        except:
-            pass
-        C1=Conformation.Conformation.LoadFromPDB(Filename)
-        Temp=C1["XYZ"]
-        if len(Temp)!=len(self["XYZList"][0]):
-            raise NameError("Tried to add wrong number of coordinates.")
-        else:
-            self["XYZList"].append(Temp)
     @classmethod
     def LoadFromPDB(cls,Filename):       
         """Create a Trajectory from a PDB Filename."""
